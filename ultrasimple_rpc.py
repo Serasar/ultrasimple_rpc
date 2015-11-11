@@ -22,4 +22,5 @@ def rpc(method, params=None):
 
     return response['result']
 
-print(rpc("getinfo", []))
+# Example usage
+# print(rpc("getinfo", []))
