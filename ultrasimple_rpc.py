@@ -8,19 +8,19 @@ RPC_PASS    = "password"
 
 
 def rpc(method, params=None):
-    rpc_id = random.getrandbits(32)
+    rpc_id = random.getrandbits(32) # random for id
 
-    callstr = json.dumps({"id": rpc_id, "method": method, "params": params})
+    callstr = json.dumps({"id": rpc_id, "method": method, "params": params}) # string with what we calling
 
-    request = requests.get(RPC_URL, auth=(RPC_USER, RPC_PASS), data=callstr)
-    response = request.json()
+    request = requests.get(RPC_URL, auth=(RPC_USER, RPC_PASS), data=callstr) # connection, auth and sending our callstr
+    response = request.json() # save request as JSON
 
     if response['id'] != rpc_id:
-        raise ValueError("invalid response id!")
+        raise ValueError("invalid response id!") # error if wrong id
     elif response['error'] != None:
-        raise ValueError("rpc error: %s" % json.dumps(response['error']))
+        raise ValueError("rpc error: %s" % json.dumps(response['error'])) # error if returned some error
 
-    return response['result']
+    return response['result'] # our response
 
 # Example usage
 # print(rpc("getinfo", []))
